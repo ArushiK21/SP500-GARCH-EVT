@@ -1,0 +1,5 @@
+"Model","VaR_Level","Violations","Actual_Breach_Rate","Kupiec_p_value"
+"Historical","99%",29,0.0142,0.0708
+"Normal","99%",56,0.0275,0
+"GARCH-t","99%",38,0.0187,5e-04
+"GARCH-EVT","99%",23,0.0113,0.5661

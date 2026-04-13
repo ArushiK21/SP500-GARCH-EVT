@@ -1,0 +1,459 @@
+{
+    "sources": [
+        {
+            "URL": "https://www.R-project.org/",
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "rcore",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "publisher-place": "Vienna, Austria",
+            "title": "R: A language and environment for statistical computing",
+            "title-short": "R",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ghalanos",
+                    "given": "Alexios"
+                }
+            ],
+            "id": "rugarch",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 1.4-9",
+            "title": "Rugarch: Univariate GARCH models",
+            "title-short": "Rugarch",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "McNeil",
+                    "given": "Alexander"
+                },
+                {
+                    "family": "Ferson",
+                    "given": "Scott"
+                },
+                {
+                    "family": "Dawson",
+                    "given": "Freeman"
+                }
+            ],
+            "id": "evir",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "note": "R package version 1.7-4",
+            "title": "Evir: Extreme values in r",
+            "title-short": "Evir",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ryan",
+                    "given": "Jeffrey A."
+                },
+                {
+                    "family": "Ulrich",
+                    "given": "Joshua M."
+                }
+            ],
+            "id": "quantmod",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "note": "R package version 0.4.22",
+            "title": "Quantmod: Quantitative financial modelling framework",
+            "title-short": "Quantmod",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Guo",
+                    "given": "Yanhong"
+                },
+                {
+                    "family": "Li",
+                    "given": "Ping"
+                },
+                {
+                    "family": "Li",
+                    "given": "Aihua"
+                }
+            ],
+            "container-title": "International Review of Financial Analysis",
+            "id": "guo2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "101649",
+            "publisher": "Elsevier",
+            "title": "Tail risk contagion between international financial markets during COVID-19 pandemic",
+            "type": "article-journal",
+            "volume": "73"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cont",
+                    "given": "Rama"
+                }
+            ],
+            "container-title": "Quantitative Finance",
+            "id": "cont2001",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2001
+                    ]
+                ]
+            },
+            "page": "223-236",
+            "publisher": "Institute of Physics Publishing",
+            "title": "Empirical properties of asset returns: Stylized facts and statistical issues",
+            "title-short": "Empirical properties of asset returns",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "author": [
+                {
+                    "family": "McNeil",
+                    "given": "Alexander J"
+                },
+                {
+                    "family": "Frey",
+                    "given": "Rüdiger"
+                }
+            ],
+            "container-title": "Journal of Empirical Finance",
+            "id": "mcneil2000",
+            "issue": "3-4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2000
+                    ]
+                ]
+            },
+            "page": "271-300",
+            "publisher": "Elsevier",
+            "title": "Estimation of tail-related risk measures for heteroscedastic financial time series: An extreme value approach",
+            "title-short": "Estimation of tail-related risk measures for heteroscedastic financial time series",
+            "type": "article-journal",
+            "volume": "7"
+        },
+        {
+            "author": [
+                {
+                    "family": "Sowdagur",
+                    "given": "Vijayalakshmi"
+                },
+                {
+                    "family": "Narsoo",
+                    "given": "Jason"
+                }
+            ],
+            "container-title": "International Journal of Statistics and Applications",
+            "id": "sowdagur2017",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "137-151",
+            "title": "Forecasting value-at-risk using GARCH and extreme-value-theory approaches for daily returns",
+            "type": "article-journal",
+            "volume": "7"
+        },
+        {
+            "author": [
+                {
+                    "family": "Bollerslev",
+                    "given": "Tim"
+                }
+            ],
+            "container-title": "Journal of Econometrics",
+            "id": "bollerslev1986",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        1986
+                    ]
+                ]
+            },
+            "page": "307-327",
+            "publisher": "Elsevier",
+            "title": "Generalized autoregressive conditional heteroskedasticity",
+            "type": "article-journal",
+            "volume": "31"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kupiec",
+                    "given": "Paul H"
+                }
+            ],
+            "container-title": "The Journal of Derivatives",
+            "id": "kupiec1995",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1995
+                    ]
+                ]
+            },
+            "page": "73-84",
+            "title": "Techniques for verifying the accuracy of risk measurement models",
+            "type": "article-journal",
+            "volume": "3"
+        },
+        {
+            "author": [
+                {
+                    "family": "Bessembinder",
+                    "given": "Hendrik"
+                }
+            ],
+            "container-title": "Available at SSRN 3875870",
+            "id": "bessembinder2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "title": "Extending portfolio theory to compound returns",
+            "type": "article-journal"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kiriliouk",
+                    "given": "Anna"
+                },
+                {
+                    "family": "Rootzén",
+                    "given": "Holger"
+                },
+                {
+                    "family": "Segers",
+                    "given": "Johan"
+                },
+                {
+                    "family": "Wadsworth",
+                    "given": "Jennifer L"
+                }
+            ],
+            "container-title": "Technometrics",
+            "id": "kiriliouk2019",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "123-135",
+            "publisher": "Taylor & Francis",
+            "title": "Peaks over thresholds modeling with multivariate generalized pareto distributions",
+            "type": "article-journal",
+            "volume": "61"
+        },
+        {
+            "author": [
+                {
+                    "family": "Asem",
+                    "given": "Ebenezer"
+                },
+                {
+                    "family": "Alam",
+                    "given": "Shamsul"
+                }
+            ],
+            "container-title": "International Journal of Economics and Finance",
+            "id": "asem2012",
+            "issue": "12",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "15-24",
+            "title": "The role of the s&p 500 index constituents in tracking the u.s. Equity market",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "author": [
+                {
+                    "family": "De Nicolò",
+                    "given": "Gianni"
+                },
+                {
+                    "family": "Lucchetta",
+                    "given": "Marcella"
+                }
+            ],
+            "id": "denicolo2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "CESifo Working Paper No. 5286",
+            "title": "Forecasting tail risks",
+            "type": "report"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ratliff-Crain",
+                    "given": "Ethan"
+                },
+                {
+                    "family": "Van Oort",
+                    "given": "Colin M"
+                },
+                {
+                    "family": "Koehler",
+                    "given": "Matthew TK"
+                },
+                {
+                    "family": "Tivnan",
+                    "given": "Brian F"
+                }
+            ],
+            "container-title": "Quantitative Finance",
+            "id": "ratliff2025",
+            "issue": "9",
+            "issued": {
+                "date-parts": [
+                    [
+                        2025
+                    ]
+                ]
+            },
+            "page": "1343-1373",
+            "publisher": "Taylor & Francis",
+            "title": "Revisiting cont’s stylized facts for modern stock markets",
+            "type": "article-journal",
+            "volume": "25"
+        },
+        {
+            "author": [
+                {
+                    "family": "Shaker-Akhtekhane",
+                    "given": "Saeed"
+                },
+                {
+                    "family": "Poorabbas",
+                    "given": "Solmaz"
+                }
+            ],
+            "container-title": "Journal of Applied Finance & Banking",
+            "id": "shaker2023",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "page": "61-74",
+            "title": "Value-at-risk estimation using an interpolated distribution of financial returns series",
+            "type": "article-journal",
+            "volume": "13"
+        },
+        {
+            "author": [
+                {
+                    "family": "Enow",
+                    "given": "Samuel Tabot"
+                }
+            ],
+            "container-title": "Journal of Economic and Social Development (JESD)-Resilient Society",
+            "id": "enow2023",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "title": "Exploring volatility clustering financial markets and its implication",
+            "type": "article-journal",
+            "volume": "10"
+        },
+        {
+            "author": [
+                {
+                    "family": "Jorion",
+                    "given": "Philippe"
+                }
+            ],
+            "container-title": "Journal of Applied Corporate Finance",
+            "id": "jorion1997",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1997
+                    ]
+                ]
+            },
+            "page": "26-38",
+            "title": "Value at risk: Uses and abuses",
+            "title-short": "Value at risk",
+            "type": "article-journal",
+            "volume": "10"
+        }
+    ],
+    "project_biblios": []
+}

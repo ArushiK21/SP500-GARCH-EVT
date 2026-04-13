@@ -1,0 +1,31 @@
+{
+    "id": "B34728CB",
+    "path": "/cloud/project/05_report/term_paper.qmd",
+    "project_path": "05_report/term_paper.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1771685924923.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "25,26",
+        "scrollLine": "23",
+        "rmdVisualMode": "false",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "23150:12020",
+        "rmdVisualWrapConfigured": "true",
+        "docOutlineVisible": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1771796272,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1771796272221,
+    "read_only": false,
+    "read_only_alternatives": []
+}

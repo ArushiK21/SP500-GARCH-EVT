@@ -1,0 +1,231 @@
+---
+title: "A Two-Step GARCH-EVT Framework for Modeling Volatility Persistence and Heavy Tails in the S&P 500"
+subtitle: "Master of Science in International Finance"
+author: "Arushi Ashok Kulkarni"
+date: "February 22, 2026"
+format: 
+  pdf:
+    number-sections: true
+    toc: false
+fontfamily: mathptmx
+fontsize: 12pt
+linestretch: 1.5
+bibliography: references.bib
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
+header-includes:
+  - \usepackage{titlesec}
+  - \usepackage{titling}
+  - \pretitle{\begin{center}\LARGE\bfseries}
+  - \posttitle{\end{center}}
+  - \titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+  - \titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+---
+
+\begin{center}
+\textbf{Matriculation Number:} 4108477 \\
+\textbf{Word Count:} 4,361 \\
+\textit{(Excluding cover page, references, and appendix)}
+\end{center}
+
+\newpage
+
+# Introduction
+
+Sometimes quiet stretches last months. Then, sudden chaos spreads fast across assets. For decades, standard risk tools leaned on a neat idea: price changes form a symmetrical bell curve. According to that thinking, huge drops happen almost never, like freak weather. Reality shows something different each time we check. Numbers reveal patterns experts recognize. One is bursts of turbulence clumping together instead of spacing out. Another is that big downturns strike way too often for the classic model to explain [@cont2001].
+
+Looking at things clearly and without unnecessary noise means starting with something solid like the S&P 500. This benchmark shows how big U.S. companies are doing, so it ends up mirroring what happens worldwide. Once that index shakes hard, movements ripple outward, other countries feel it too. Early 2020 stands out because everything dropped fast when the pandemic hit. That moment broke past trends sharply, proving that measuring rare, extreme risks matters just as much in real life as in research papers [@guo2021].
+
+One way to measure potential losses is called Value-at-Risk, or VaR. Because it sets a boundary for how much might be lost under normal assumptions, many rely on it [@jorion1997]. Yet when markets shift sharply, older versions of VaR usually fall short. Instead of capturing sudden swings, they lean on past data or bell-shaped curves, both of which break down when chaos hits. As turbulence builds, lagging updates make the estimates drift further from reality. Crash odds stack up faster than those models can track them. Their main flaw lies in slow reaction speeds and ignoring how often big drops actually occur. When pressure mounts, being blind to fat tails leads to a false sense of calm [@jorion1997].
+
+This leads into the main focus of the study: Could a method blending shifting volatility patterns with focused tail-risk analysis outperform standard VaR techniques when markets face severe strain? The aim is clear - testing whether mixing these elements improves forecast accuracy under intense conditions.
+
+To tackle this problem, the process is split into steps. Starting off, a GARCH(1,1) setup that includes Student-t errors helps track changes in volatility while removing clustered spikes. Then comes the part where extremes matter more here, Extreme Value Theory (EVT) enters through the Peaks-Over-Threshold (POT) approach. Instead of looking at all data, it zeroes in on the biggest losses. The tail section gets modeled straight, without detours. The shape of rare events becomes clearer this way.
+
+The key contribution here is measuring the gains in predicting risk by merging these elements. Through testing on past data stretching over years and hitting the 2020 chaos, it turns out that handling both steady swings and rare shocks matters most. When markets turn shaky, forecasts hold up better only if both traits get included. Results suggest ignoring either piece weakens reliability just when it counts. What stands clear? Accuracy rises not from one fix alone, but from their blend.
+
+# Data and preprocessing
+
+Getting solid empirical outcomes relies on clear, well-recorded data that has been carefully preprocessed. The primary measure analyzed here is the S&P 500, often utilized to track how U.S. stock markets behave. It represents a substantial share of American corporate value, staying relevant through regular updates to its constituents. Over time, these adjustments keep it in step with wider economic trends, as noted by Asem and Alam in 2012 [@asem2012]. With massive corporate detail flowing into it and high trading activity, it serves as a fitting backdrop to explore deep market stress and sudden drops.
+
+Daily adjusted closing prices for the S&P 500 make up the dataset, spanning from January 2014 to January 2026. Because these prices reflect structural changes like stock splits and dividends, they provide a much clearer picture over time. Without such adjustments, sudden shifts in price might look like market crashes when they are actually just accounting updates. That kind of noise becomes especially problematic when analyzing rare, severe losses with models like Extreme Value Theory. False extremes could skew the tail-risk results badly if the data isn’t cleaned properly first. Choosing daily intervals was a deliberate choice to balance detail without overcrowding the view. Shrinking data into weekly or monthly aggregates softens the impact of big swings. Daily data keeps those sudden jumps intact, exactly what matters when studying rare events. Finer time steps hold on to abrupt changes, ensuring sharp market turns show up clearly.
+
+Because price levels move around too much to stay stationary, analyzing percentage changes makes significantly better econometric sense. The daily change is calculated by taking the natural log of each price, then subtracting the previous day's value. Suppose $P_t$ stands for the adjusted closing price on day $t$. The shift in logged values captures how fast things rise or fall across days:
+
+$$r_t = \ln(P_t) - \ln(P_{t-1}) = \ln \left( \frac{P_t}{P_{t-1}} \right)$$
+
+One major reason this logarithmic approach remains the standard is that it allows returns to be added across periods instead of multiplied. Tracking cumulative gains over weeks via addition is far more stable than chained multiplication. When prices shift just a bit each day, these log values act nearly identically to basic percentage changes. Over years, however, the way growth compounds makes log returns stand out, they reflect accumulation without awkward jumps. Bessembinder (2021) demonstrated that uneven patterns and buildup matter heavily over long horizons, making log transformations especially helpful for this type of analysis [@bessembinder2021].
+
+Data verification occurred before any modeling began to ensure structural integrity. Gaps tied to weekends or holidays when markets shut down are entirely normal, not reporting mistakes. Yet leaving them unhandled or poorly indexed could twist the volatility estimates later on. The timeline was confirmed chronologically, piece by piece, ensuring each data point followed its exact sequence. Missing values were addressed only when absolutely necessary, leaving the data mostly untouched to avoid introducing fake, smoothed patterns. Once tidied, the log returns stood stationary and stable, ready without artificial jumps or breaks. That clean sequence became the foundation for everything that followed. Moving forward, volatility took form through a GARCH setup built from this sequence, while extreme lows received specialized attention using the peaks-over-threshold rules of EVT. Each subsequent phase of this study runs exclusively off this single, adjusted stream.
+
+# Exploratory data analysis and stylized facts
+
+From January 2014 to January 2026, the dataset comprises 3,037 trading days. Because it spans twelve years, it captures prolonged quiet stretches alongside moments of severe market turmoil. Observing this extended horizon allows researchers to identify recurring stylized facts common in financial time series. These features first outlined by Cont and recently revisited by Ratliff-Crain et al. (2025) [@ratliff2025] demonstrate that asset returns rarely follow a normal bell curve. This persistent mismatch is exactly what necessitates advanced frameworks like GARCH and EVT.
+
+![](images/fig_01_price_GSPC.png){width="555"}
+
+Through the years, the S&P 500's adjusted closing prices show an overall upward trajectory. Yet, that rise does not move steadily forward; it is frequently interrupted by sudden, aggressive drawdowns. The most prominent structural break occurred in early 2020, bringing the deepest plunge right as the global economy locked down under the COVID-19 pandemic [@guo2021]. Because non-stationary price levels make raw data unsuitable for risk analysis, converting the data to daily log returns stabilizes the sequence, satisfying the stationarity requirements of time-series modeling.
+
+![](images/fig_02_returns_GSPC.png){width="555"}
+
+Plotting these daily log returns immediately reveals a core market truth: volatility clusters together. Large price swings are frequently followed by more large swings, regardless of direction, while periods of calm tend to persist, a phenomenon recently reaffirmed by Enow (2023) [@enow2023]. This clustering is visually undeniable in the dataset. From 2014 through 2019, the market remained relatively stable. Then, at the start of 2020, wild fluctuations appeared without warning. This shifting variance violates the core assumptions of traditional models that rely on constant, unchanging risk. Because of this behavior, applying a GARCH(1,1) model is necessary to track how bumpy markets remain long after an initial shock fades.
+
+What we see in the charts lines up perfectly with the descriptive statistics behind them. Out of the 3,037 data points, the average daily return sits just above zero at 0.0439%, but the standard deviation stretches much wider to 1.0999%. The extremes, however, stand out sharply: the market recorded a maximum daily jump of 9.09% and a devastating minimum plunge of -12.76%. If returns actually followed a perfect bell curve, a drop exceeding eleven standard deviations would be a statistical near-impossibility, an event expected to occur only once every few millennia. Yet, it happened within a twelve-year window. That gap tells its own story: financial reality bends far beyond tidy textbook curves.
+
+![](images/fig_03_hist_GSPC.png){width="555"}
+
+Looking closer at the distribution reveals further imbalances. Rather than perfect symmetry, the data leans negative, a tilt confirmed by a skewness of -0.6611, meaning steep market drops are more severe than sharp rises. More strikingly, the kurtosis reaches an extraordinary 16.3103. Since a normal distribution possesses an excess kurtosis of zero, this massive figure mathematically proves the existence of extreme peaks and fat tails. As the histogram clearly illustrates, the center spikes much higher and the outer edges stretch much wider than a normal curve ever allows.
+
+![](images/fig_04_qq_GSPC.png){width="555"}
+
+The Quantile-Quantile (Q-Q) plot visualizes exactly how far these returns stretch. Near the center, the data points hug the diagonal line, behaving almost as if they belong to a normal distribution. However, moving toward either extreme edge, the points twist sharply away dipping significantly lower on the left and curving higher on the right. This pronounced bend is absolute visual confirmation of heavy tails. Normal assumptions completely fall short when faced with such extremes. Therefore, instead of ignoring these outliers, this study leverages Extreme Value Theory, specifically the Peaks-Over-Threshold (POT) method to give shape to the rare jumps. By setting a strict threshold, such as isolating the worst 5% of days [@mcneil2000], EVT treats these wild swings not as statistical errors, but as critical clues for mapping the deep risks lurking beneath the averages.
+
+# Methodology
+
+When markets tumble, things change fast. This research tracks that chaos using a two-step method. First, a GARCH setup tames the wild, everyday swings. Second, Extreme Value Theory digs into the rare disasters left behind. By focusing on the extremes instead of just the averages, this approach catches the deep tail risks that standard models usually write off as flukes.
+
+4.1. Value-at-Risk (VaR) and Expected Shortfall (ES)
+
+These days, Value-at-Risk (VaR) is the go-to tool for measuring how much money might be lost when things go south [@shaker2023]. Think of it as drawing a statistical safety line: VaR tells you the absolute worst drop you should expect on a given day. Under normal odds, losses should only cross that line $\alpha$ percent of the time. If we call daily returns $r_t$, this boundary sits right where the left tail hits $\alpha$.$$P(r_t < -VaR_\alpha | \Omega_{t-1}) = \alpha$$Here, $\Omega_{t-1}$ is simply all the market data we have up to yesterday. But VaR has a major blind spot: it tells you when things get bad, but not how bad. To fix that, we bring in Expected Shortfall (ES). ES answers the crucial question: what happens once the VaR line is broken?$$ES_\alpha = E[-r_t | r_t < -VaR_\alpha]$$Simply put, Expected Shortfall averages out the damage of those extreme, worst-case days. Looking past the edge and into the thick of a crisis, the S&P 500's true risk becomes much clearer when both of these measures work together.
+
+4.2. Conditional Volatility Modeling: GARCH(1,1)
+
+One strange truth about financial data is that big market swings often trigger more big swings, while quiet times tend to breed more calm [@enow2023]. Modeling this "volatility clustering" needs a tool built for shifting moods, not fixed rules. That is where GARCH comes in. Built in the 1980s, its core idea is intuitive: yesterday’s chaos helps predict today’s risk [@bollerslev1986].Assuming returns move around an average ($r_t = \mu + \varepsilon_t$), the leftover noise, $\varepsilon_t$, breaks down into $z_t \sigma_t$. That $\sigma_t$ is the shifting volatility, and it updates step-by-step:$$\sigma_t^2 = \omega + \alpha_1 \varepsilon_{t-1}^2 + \beta_1 \sigma_{t-1}^2$$There is a quiet balance happening in this equation. The ARCH term ($\alpha_1$) measures how much a sudden market jolt shakes things up right away. The GARCH term ($\beta_1$) shows how long that shakiness lingers. As long as their sum stays below one, the model remains stable over time. Also, since stock returns have much fatter tails than a standard bell curve, we use a Student-t setup. This twist lets the model handle wild swings naturally before we even start the deep tail analysis.
+
+4.3. Extreme Value Theory: The Peaks-Over-Threshold (POT) Approach
+
+Even with GARCH smoothing out the volatility, the absolute worst market crashes still slip through the cracks. If we just look at the middle of the data, we miss the actual disasters. This is where Extreme Value Theory (EVT) steps in. Instead of trying to fit everything, EVT ignores the everyday noise and focuses purely on the rare plunges. Following a two-stage method, we first clean the data with GARCH, then apply the Peaks-Over-Threshold (POT) method to the leftovers [@mcneil2000]. Basically, we set a high boundary $u$ and only look at the outliers that jump past it [@kiriliouk2019]. Those extreme excesses ($y = z - u$) end up following a Generalized Pareto Distribution (GPD):$$G_{\xi, \beta}(y) = 1 - \left(1 + \frac{\xi y}{\beta}\right)^{-1/\xi}$$The shape factor $\xi$ (the tail index) is the star here. When it is positive, it mathematically proves the tail is "fat" meaning massive losses happen way more often than normal models expect. Picking the threshold $u$ is the tricky part. Following standard risk analysis practice, we set $u$ at the 95th percentile [@mcneil2000]. This neatly isolates the worst 5% of days, giving us just enough data to map the danger zone without letting normal days mess up the math.
+
+4.4. Validation and Backtesting: The Kupiec POF Test
+
+Checking if this GARCH-EVT model actually works requires a strict stress test using unseen data. To grade VaR estimates, risk managers usually rely on Kupiec’s Proportion of Failures (POF) test [@kupiec1995]. Think of it as a simple pass/fail exam: does the actual number of market crashes match what the model predicted?Suppose we test the model over $N$ trading days. On some days, losses will inevitably blast past the VaR limit. We count those breaches as $x$. The observed failure rate, $\hat{p}$, is just $x$ divided by $N$. For the model to pass, this actual rate needs to closely match our target rate $p$ (like 1% for a 99% VaR). The Kupiec test compares these using a Likelihood Ratio (LR):$$LR_{POF} = -2 \ln \left( \frac{p^x (1-p)^{N-x}}{\hat{p}^x (1-\hat{p})^{N-x}} \right)$$If the model is doing its job, the $LR_{POF}$ number stays low. But if it climbs past the 5% critical threshold (3.841), the test rejects the model. Rejection means the predictions have drifted too far from reality, showing structural flaws when faced with real-world swings.
+
+# Empirical results
+
+5.1 Conditional volatility with GARCH(1,1) estimates
+
+Starting with the pattern of shifting swings seen during early analysis, a GARCH(1,1) setup using Student-t errors was fitted. Rather than locking risk at one level, this method lets it shift as new data comes in. Every number pulled from the fit stands out clearly under statistical checks, suggesting the structure lines up well with how the S&P 500's returns actually change through time. About 0.023944 stands as the estimated variance constant ($\omega$). What really matters shows up in how past disruptions stick around over time. Yesterday’s surprise shifts contribute nearly 18 percent to today’s predicted swings, captured by an ARCH value ($\alpha_1$) of 0.178282. More influential still, the GARCH term ($\beta_1$) reaches 0.815401 meaning most of yesterday’s turbulence lingers into the present. Add those two effects, and their sum hits 0.993683, just shy of full retention. Volatility in the S&P 500 tends to linger when markets get shaken, things settle gradually instead of snapping back fast [@bollerslev1986]. Not far off, the Student-t shape value comes in at 5.291381, showing returns carry fatter tails than a standard bell curve allows, even once shifting volatility gets factored in.
+
+| Parameter                    | Estimate |
+|:-----------------------------|:---------|
+| $\mu$ (Mean)                 | 0.093881 |
+| $\omega$ (Baseline Variance) | 0.023944 |
+| $\alpha_1$ (ARCH term)       | 0.178282 |
+| $\beta_1$ (GARCH term)       | 0.815401 |
+| Shape (Student-t)            | 5.291381 |
+
+: Maximum Likelihood Estimates for the GARCH(1,1)-t Model.
+
+![](images/fig_05_acf_sq_GSPC.png){width="555"}
+
+Looking at the ACF of squared returns makes volatility clustering easy to spot. The strong and significant autocorrelation spikes show that variance is persistent over time, which goes against the idea of constant volatility. This is exactly why a GARCH(1,1) model is appropriate here, since it is designed to model changing volatility before EVT is used to focus on the extreme tail.
+
+![](images/fig_06_garch_vol_GSPC.png){width="555"}
+
+Looking back at the last twelve years, the graph shows how bumpy things have been. Most of the time between 2014 and 2019 stayed calm, though small ripples did appear now and then. When pressure built up, the system responded fast, no lagging behind. Early in 2020, everything shifted: numbers surged as chaos took hold. That sudden leap would be missed completely by a steady model. When markets get shaky, seeing shifts in wild swings helps show the real risks people deal with [@guo2021]. That shift matters because it clears out repeating patterns so what follows can focus on rare extremes.
+
+5.2 Extreme Value Theory with Peaks Over Threshold Parameters
+
+Once volatility bunching gets sorted by the GARCH tool, attention shifts to the far left edge, the steepest drops in markets. Extreme Value Theory enters here via the Peaks-Over-Threshold method. Instead of forcing one shape onto every data point, this way zooms in just on values that leap past a chosen ceiling. That line is drawn at 1.7843, picking out roughly the bottom 5% of results [@mcneil2000]. That rule isolates exactly 152 far-out data points from the whole set. It works well because it holds on to just enough edge cases so estimates stay steady, yet keeps attention fixed on uncommon, big-magnitude moments instead of everyday shifts.
+
+| Parameter       | Estimate |
+|:----------------|:---------|
+| Threshold ($u$) | 1.7843   |
+| Exceedances     | 152      |
+| Shape ($\xi$)   | 0.162963 |
+| Scale ($\beta$) | 0.665901 |
+
+: GPD Parameters for the Standardized Residual Tails.
+
+Out beyond those 152 points, a Generalized Pareto Distribution takes shape. Its stretch, pinned at $\beta = 0.665901$, sets the width of the spread. Then there's $\xi$ clocking in at 0.162963 shaping how fast the tail fades. Now here’s what matters most: that little number carries a plus sign. Since it leans upward, the tail refuses to shrink quickly, marking it Fréchet-style heavy. That means outsized losses show up more often than calm models like to predict. Put another way, the data hints the S&P 500 sees big drops more often than typical models predict a sign its tail behavior isn’t thin like a bell curve.
+
+![](images/fig_07_mean_excess_GSPC.png){width="555"}
+
+The Mean Excess plot does not rise steadily across all threshold values. Instead, it stays relatively flat through the middle range and then shows a gentle upward drift at higher thresholds, where the points also become noisier because there are fewer exceedances. Overall, this pattern is broadly in line with heavy-tailed behavior and supports using the POT approach, as long as the threshold is chosen in a high-threshold region where the tail appears stable enough to model.
+
+5.3 Risk Model Testing and Review
+
+Checking if risk forecasts match real outcomes means testing them against actual results across 2,037 trading days using a 99 percent threshold. About one percent of those days around twenty should exceed the predicted limit when the model works properly. Different methods enter comparison: past data alone, standard statistical curves, volatility adjustments through GARCH-t, and merging extreme value theory with GARCH setups.
+
+| Model      | VaR Level | Violations | Actual Breach Rate | Kupiec p-value |
+|:-----------|:----------|:-----------|:-------------------|:---------------|
+| Historical | 99%       | 29         | 0.0142             | 0.0708         |
+| Normal     | 99%       | 56         | 0.0275             | 0.0000         |
+| GARCH-t    | 99%       | 38         | 0.0187             | 0.0005         |
+| GARCH-EVT  | 99%       | 23         | 0.0113             | 0.5661         |
+
+: Backtesting performance of Value-at-Risk models.
+
+When markets get shaky, old-school methods often fail. Instead of holding steady, the usual "Normal" VaR method misses danger zones recording 56 actual blow-ups versus what was predicted. That kind of miss lands a Kupiec p-value at zero across several decimal places, so the model fails outright when tested for accuracy [@kupiec1995]. Out front, with clear distance, sits the GARCH-EVT strategy showing tighter alignment where it matters most. Exactly 23 breaches show up, amounting to 1.13 percent, nearly matching the target of one in a hundred. With a Kupiec p-score sitting at 0.5661, such an outcome fits what you would expect if things were working right; evidence does not point toward rejection, suggesting calibration holds firm [@kupiec1995].
+
+![](images/fig_08_var_overlay_99_GSPC.png){width="555"}
+
+Looking at the VaR overlay plot clears up what sets them apart. When volatility shifts fast, basic models barely tweak their VaR levels big swings then breach those limits again and again. But the GARCH-EVT method adjusts faster since it links shifting variance with a dedicated tail-risk setup. With rising danger in markets, its threshold climbs too, staying closer to reality through long rough patches while fending off clusters of severe drops that would break weaker methods.
+
+# Validation and robustness
+
+To ensure the system isn’t just effective in theory, it must be tested against actual market behavior. Instead of relying on data the model has already "seen," predictions are measured against an out-of-sample window to see how they handle events as they unfold. In this study, testing spans a rigorous stretch of 2,037 trading days. The focus here is strictly on rare downside events, those extreme losses expected to occur roughly once every hundred days.
+
+Under a 99% Value-at-Risk setup, the expectation is that market movements will stay within the predicted bounds the vast majority of the time. Statistically, trouble should only surface once in every hundred days. Across this 2,037-day window, that adds up to approximately twenty moments where actual losses breach the warning line. Determining if reality matches this theoretical expectation requires a specific tool: the Kupiec POF test [@kupiec1995]. The logic is straightforward: if breaches happen significantly more often than they should, the test returns an extremely low p-value, a red flag signaling the model is unreliable. While a high p-value doesn't prove a model is perfect, it suggests that any deviations are likely just random noise rather than a systematic failure.
+
+The results show a clear divide in how each method behaves under pressure. The traditional Normal VaR approach struggles significantly, failing to capture the very risks it is designed to monitor. With 56 breaches recorded, it produced a violation rate of 2.75%, nearly triple the intended 1%. This failure is confirmed by the Kupiec test, which returns a p-value of 0.0000. Such a result proves that the assumption of a normal distribution is fundamentally flawed for the S&P 500, as it completely misses the gravity of downside risks. Even the GARCH-t setup, which accounts for shifting volatility, fails to reach the required confidence levels. It recorded 38 breaches, a 1.87% failure rate resulting in a Kupiec p-value of 0.0005, once again leading to a formal rejection.
+
+The GARCH-EVT method, however, stands apart by performing almost exactly as intended. With only 23 violations, it achieved a breach rate of 1.13%, remarkably close to the 1% target. This performance aligns with its Kupiec p-value of 0.5661 [@kupiec1995], meaning there is no statistical reason to doubt the model’s accuracy. Ultimately, these results confirm that blending time-varying volatility with focused tail analysis creates forecasts that hold firm, even when the market turns violent.
+
+# Conclusion
+
+This study aimed to determine if advanced statistical methods could address key flaws in standard risk predictions, particularly their tendency to miss severe market downturns. With the S&P 500 serving as the reference, a dynamic blend of GARCH and Extreme Value Theory (EVT) was put to the test. The outcomes point toward meaningful takeaways that are highly useful for the real-world management of financial threats. Because extreme market crashes behave fundamentally differently than normal daily shifts, old assumptions falter under stress. While historical data is helpful, relying solely on past averages proved dangerous. Instead, blending dynamic volatility tracking with a dedicated focus on structural breaks delivered significantly better foresight. First, the empirical results strongly reject the assumption of a normal distribution. Out-of-sample backtesting shows the standard VaR method falls dangerously short and its breach rate hits 2.75% when it should be near 1% for a 99% threshold. That gap reveals just how much Gaussian assumptions downplay real losses. Furthermore, the S&P 500 swings wildly, and those swings stick around much longer than standard models assume. With a GARCH(1,1) persistence estimate sitting at almost 1.0, it is clear that spikes in volatility linger. Because of this sticky behavior, using static risk caps makes little sense when markets get shaky; limits tied to current, shifting volatility work much better. Additionally, the EVT findings provide mathematical proof of fat tails in the data. Since the tail index comes out positive ($\xi = 0.163$), rare, massive losses happen far more often than narrow-distribution models expect. What stands out most is how linking these pieces produces vastly superior results. Since volatility shifts over time, the GARCH framework handles those changes seamlessly. Meanwhile, the extreme tail outcomes get precise attention through the POT method. When combined, this GARCH-EVT blend becomes the sole setup that holds up under strict testing showing just 1.13% breaches and clearing the Kupiec check without issue. Turbulent periods like the 2020 crash reveal its true strength: building separate mathematical models for shifting variance and rare events leads to highly reliable risk estimates when systemic stress hits. A vital note of caution is due regarding the modeling pipeline. Though the daily VaR predictions utilized an evolving, out-of-sample rolling window for the GARCH volatility, the EVT settings, specifically the threshold cutoff and the tail curve parameters stayed static after their initial in-sample estimation. Ideally, in a live trading environment, those tail parameters would also shift forward step-by-step. Despite this static EVT setup, the core findings remain firm: today’s financial landscapes demand dynamic risk models that pay strict attention to rare, heavy losses.
+
+\newpage
+
+# References 
+
+::: {#refs}
+:::
+
+\newpage
+
+# Appendix: R Source Code 
+
+The following script contains the complete R code used for data retrieval, preprocessing, GARCH volatility modeling, and EVT tail-risk estimation.
+
+```r
+
+# ========================================== {.unnumbered}
+# 1. Data Retrieval and Preprocessing {.unnumbered}
+# ========================================== {.unnumbered}
+library(quantmod)
+library(rugarch)
+library(evir)
+
+# Fetch S&P 500 data {.unnumbered}
+getSymbols("^GSPC", from = "2014-01-01", to = "2026-02-01")
+sp500_prices <- Ad(GSPC)
+
+# Calculate daily log returns {.unnumbered}
+sp500_returns <- diff(log(sp500_prices))
+sp500_returns <- na.omit(sp500_returns)
+
+# ========================================== {.unnumbered}
+# 2. GARCH(1,1) Volatility Modeling {.unnumbered}
+# ========================================== {.unnumbered}
+# Specify the GARCH model with Student-t distribution {.unnumbered}
+garch_spec <- ugarchspec(
+  variance.model = list(model = "sGARCH", garchOrder = c(1, 1)),
+  mean.model = list(armaOrder = c(0, 0), include.mean = TRUE),
+  distribution.model = "std"
+)
+
+# Fit the model {.unnumbered}
+garch_fit <- ugarchfit(spec = garch_spec, data = sp500_returns)
+show(garch_fit)
+
+# ========================================== {.unnumbered}
+# 3. Extreme Value Theory (POT Method) {.unnumbered}
+# ========================================== {.unnumbered}
+# Extract standardized residuals {.unnumbered}
+std_res <- residuals(garch_fit, standardize = TRUE)
+
+# Fit Generalized Pareto Distribution over 95th percentile threshold {.unnumbered}
+pot_fit <- gpd(as.numeric(std_res), threshold = 1.7843)
+
+

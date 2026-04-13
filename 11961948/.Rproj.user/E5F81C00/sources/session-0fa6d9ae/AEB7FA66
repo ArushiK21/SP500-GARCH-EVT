@@ -1,0 +1,24 @@
+{
+    "id": "AEB7FA66",
+    "path": "/cloud/project/04_outputs/tables/tab_03_evt_params_GSPC.csv",
+    "project_path": "04_outputs/tables/tab_03_evt_params_GSPC.csv",
+    "type": "text",
+    "hash": "1418979783",
+    "contents": "",
+    "dirty": false,
+    "created": 1771770752050.0,
+    "source_on_save": false,
+    "relative_order": 15,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1771770787,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1771770787125,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,26 @@
+{
+    "id": "ABD5D6D6",
+    "path": "/cloud/project/04_outputs/model_objects/baseline_var_GSPC.csv",
+    "project_path": "04_outputs/model_objects/baseline_var_GSPC.csv",
+    "type": "text",
+    "hash": "3236351696",
+    "contents": "",
+    "dirty": false,
+    "created": 1771694373867.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "0,0",
+        "scrollLine": "996"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1771770901,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1771770901731,
+    "read_only": false,
+    "read_only_alternatives": []
+}
