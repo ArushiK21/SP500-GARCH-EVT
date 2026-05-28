@@ -321,10 +321,10 @@ SP500-GARCH-EVT-Risk-Modeling/
 │
 ├── data/
 │   ├── raw/
-│   │   └── sp500_raw_data.csv
+│   │   └── prices_GSPC_2014_2026.csv
 │   │
 │   └── processed/
-│       └── sp500_log_returns.csv
+│       └── returns_GSPC_2014_2026.csv
 │
 ├── code/
 │   └── sp500_garch_evt_var_backtesting.R
@@ -345,11 +345,7 @@ SP500-GARCH-EVT-Risk-Modeling/
 │       └── var_overlay.png
 │
 └── paper/
-    └── Arushi_Kulkarni_4108477_FinancialAnalytics.pdf
-```
-
-You can adjust the folder and file names above to match the exact names in your repository.
-
+    └── Arushi_Kulkarni_FinancialAnalytics.pdf
 ---
 
 ## **12. Tools and Libraries Used**
